@@ -9,17 +9,17 @@ def medianaRes(x: Seq[Double])  = {
         val pos2 = pos1 - 1
         val med = (y(pos1) + y(pos2))/2
         val res = Map("Mediana" -> med)
-        println(res)
+        res
     }
     else{
         val pos1 = longitud/2
         val med = y(pos1)
         val res = Map("Mediana" -> med)
-        println(res)
+        res
     }
 }
 
-def mediaRes(x: Seq[Float]) = {
+def mediaRes(x: Seq[Double]) = {
     val longitud = x.size
     var pos = 0
     var sum = 0.0
@@ -30,10 +30,10 @@ def mediaRes(x: Seq[Float]) = {
     }
 
     val res = Map("Media" -> sum / longitud)
-    println(res)
+    res
 }
 
-def modaRes(x: Seq[Int]) ={
+def modaRes(x: Seq[Double]) ={
     val freq = x.groupBy(x => x).mapValues(_.size)
     val maximum = freq.valuesIterator.max
     val res0 = freq.filter(_._2 == maximum).map{case(k,v) => k}.toList
@@ -41,12 +41,18 @@ def modaRes(x: Seq[Int]) ={
     res  
 }
 
+def operEstad(x: Seq[Double]) = {
+    val mediana = medianaRes(x)
+    val media = mediaRes(x)
+    val moda = modaRes(x)
+    
+    val resultados = mediana .++ (moda) .++ (media)
+    resultados  
+}
 
 val l = Seq(2,5,5,5,4,6,4,6)
 val l0 = Seq(7.0,8.0,9.0,10.0,11.0,12.0)
-val l1 = Seq(3.0,10.0,36.0,255.0,79.0,24.0,5.0,8.0)
+val l1 = Seq(3.0,10.0,3.0,255.0,79.0,24.0,5.0,8.0,1.5,255.0,79.0,3.0,79.0)
 val l2 = Seq(2,5,5,6,8,8,9,11)
 
-//medianaRes(l1)
-//mediaRes(l1)
-println(modaRes(l2))
+println(operEstad(l1))
